@@ -1,0 +1,35 @@
+aws:
+  region: us-west-2
+  profile: null
+
+empty_instance:
+  ami_id: ami-0ba80f8099420ac44
+  instance_type: c5a.16xlarge
+  subnet_id: subnet-05f28d58f7bb14f52
+  security_group_ids:
+    - sg-0b9124a453488edb1
+  associate_public_ip_address: true
+  iam_instance_profile: null
+  key_name: Yuqi Ubuntu Workstation
+  volume_size_gb: 100
+  volume_type: gp3
+  root_device_name: /dev/sda1
+  encrypted: true
+  delete_on_termination: true
+  iops: 3000
+  kms_key_id: alias/aws/ebs
+  throughput: 125
+  metadata_options:
+    HttpEndpoint: enabled
+    HttpPutResponseHopLimit: 2
+    HttpTokens: required
+  private_dns_name_options:
+    HostnameType: ip-name
+    EnableResourceNameDnsARecord: false
+    EnableResourceNameDnsAAAARecord: false
+  s3_file_systems:
+    - id: fs-0b9d7671fb53cf3c5
+      mount_point: /mnt/s3/fs1
+  tags:
+    Project: cadri
+    Role: general-purpose

@@ -1,0 +1,72 @@
+aws:
+  region: us-west-2
+  profile: null
+
+empty_instance:
+  ami_id: ami-00604633ba621bf26
+  instance_type: c5a.16xlarge
+  subnet_id: subnet-0453f9f4c07f82926
+  security_group_ids:
+    - sg-0b9124a453488edb1
+  associate_public_ip_address: true
+  iam_instance_profile: null
+  key_name: Yuqi Ubuntu Workstation
+  volume_size_gb: 100
+  volume_type: gp3
+  root_device_name: /dev/sda1
+  delete_on_termination: true
+  encrypted: true
+  iops: 3000
+  kms_key_id: arn:aws:kms:us-west-2:314146320156:key/af838817-c494-4fda-b89b-b07547475801
+  snapshot_id: snap-0bf57749da681201c
+  throughput: 125
+  private_dns_name_options:
+    HostnameType: ip-name
+    EnableResourceNameDnsARecord: false
+    EnableResourceNameDnsAAAARecord: false
+  s3_file_systems:
+    - id: fs-0b9d7671fb53cf3c5
+      mount_point: /mnt/s3/fs1
+  tags:
+    Project: cadri
+    Generator: doppeltest
+    Role: general-purpose
+
+launch:
+  ami_id: ami-00604633ba621bf26
+  instance_type: c5a.16xlarge
+  subnet_id: subnet-0453f9f4c07f82926
+  security_group_ids:
+    - sg-0b9124a453488edb1
+  associate_public_ip_address: true
+  iam_instance_profile: null
+  key_name: Yuqi Ubuntu Workstation
+  shutdown_behavior: terminate
+  root_device_name: /dev/sda1
+  volume_size_gb: 100
+  volume_type: gp3
+  delete_on_termination: true
+  encrypted: true
+  iops: 3000
+  kms_key_id: arn:aws:kms:us-west-2:314146320156:key/af838817-c494-4fda-b89b-b07547475801
+  snapshot_id: snap-0bf57749da681201c
+  throughput: 125
+  private_dns_name_options:
+    HostnameType: ip-name
+    EnableResourceNameDnsARecord: false
+    EnableResourceNameDnsAAAARecord: false
+  tags:
+    Project: cadri
+    Generator: doppeltest
+
+generator:
+  name: doppeltest
+  working_directory: /opt/cadri/doppeltest
+  command: . .venv/bin/activate && python main_ga.py
+  results_directory: /opt/cadri/doppeltest/results
+  log_file: /var/log/cadri-doppeltest.log
+  s3_file_systems:
+    - id: fs-0b9d7671fb53cf3c5
+      mount_point: /mnt/s3/fs1
+  s3_bucket: null
+  s3_prefix: cadri/doppeltest/results
