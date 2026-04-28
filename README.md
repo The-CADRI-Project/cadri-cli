@@ -33,6 +33,11 @@ registered for the `cadri` executable name, not for `uv run cadri`.
 AWS credentials should come from your normal AWS CLI environment, such as
 `AWS_PROFILE`, `AWS_REGION`, or instance/role credentials.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, including
+the required commit message format.
+
 ## Launch a General Instance
 
 Edit `config/general.yaml` with the AWS values for your account:
