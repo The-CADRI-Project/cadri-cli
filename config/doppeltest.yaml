@@ -3,7 +3,7 @@ aws:
   profile: null
 
 empty_instance:
-  ami_id: ami-09210e2171ed65092
+  ami_id: ami-06fdab3a8bf34184e
   instance_type: c5a.16xlarge
   subnet_id: subnet-0453f9f4c07f82926
   security_group_ids:
@@ -18,7 +18,7 @@ empty_instance:
   encrypted: true
   iops: 3000
   kms_key_id: arn:aws:kms:us-west-2:314146320156:key/af838817-c494-4fda-b89b-b07547475801
-  snapshot_id: snap-0c4fda29238f16092
+  snapshot_id: snap-02435935bc2b59930
   throughput: 125
   private_dns_name_options:
     HostnameType: ip-name
@@ -33,7 +33,7 @@ empty_instance:
     Role: general-purpose
 
 launch:
-  ami_id: ami-09210e2171ed65092
+  ami_id: ami-06fdab3a8bf34184e
   instance_type: c5a.16xlarge
   subnet_id: subnet-0453f9f4c07f82926
   security_group_ids:
@@ -49,7 +49,7 @@ launch:
   encrypted: true
   iops: 3000
   kms_key_id: arn:aws:kms:us-west-2:314146320156:key/af838817-c494-4fda-b89b-b07547475801
-  snapshot_id: snap-0c4fda29238f16092
+  snapshot_id: snap-02435935bc2b59930
   throughput: 125
   private_dns_name_options:
     HostnameType: ip-name
