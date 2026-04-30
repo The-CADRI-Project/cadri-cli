@@ -3,7 +3,7 @@ aws:
   profile: null
 
 empty_instance:
-  ami_id: ami-09210e2171ed65092
+  ami_id: ami-004dc84c99cc20ac1
   instance_type: c5a.16xlarge
   subnet_id: subnet-0453f9f4c07f82926
   security_group_ids:
@@ -18,7 +18,7 @@ empty_instance:
   encrypted: true
   iops: 3000
   kms_key_id: arn:aws:kms:us-west-2:314146320156:key/af838817-c494-4fda-b89b-b07547475801
-  snapshot_id: snap-0c4fda29238f16092
+  snapshot_id: snap-0106e418e92ce9514
   throughput: 125
   private_dns_name_options:
     HostnameType: ip-name
@@ -29,11 +29,11 @@ empty_instance:
       mount_point: /mnt/s3/fs1
   tags:
     Project: cadri
-    Generator: doppeltest
+    Generator: scenorita
     Role: general-purpose
 
 launch:
-  ami_id: ami-09210e2171ed65092
+  ami_id: ami-004dc84c99cc20ac1
   instance_type: c5a.16xlarge
   subnet_id: subnet-0453f9f4c07f82926
   security_group_ids:
@@ -49,7 +49,7 @@ launch:
   encrypted: true
   iops: 3000
   kms_key_id: arn:aws:kms:us-west-2:314146320156:key/af838817-c494-4fda-b89b-b07547475801
-  snapshot_id: snap-0c4fda29238f16092
+  snapshot_id: snap-0106e418e92ce9514
   throughput: 125
   private_dns_name_options:
     HostnameType: ip-name
@@ -57,16 +57,16 @@ launch:
     EnableResourceNameDnsAAAARecord: false
   tags:
     Project: cadri
-    Generator: doppeltest
+    Generator: scenorita
 
 generator:
-  name: doppeltest
-  working_directory: /opt/cadri/doppeltest
+  name: scenorita
+  working_directory: /opt/cadri/scenorita
   command: . .venv/bin/activate && python main_ga.py
-  results_directory: /opt/cadri/doppeltest/results
-  log_file: /var/log/cadri-doppeltest.log
+  results_directory: /opt/cadri/scenorita/results
+  log_file: /var/log/cadri-scenorita.log
   s3_file_systems:
     - id: fs-0b9d7671fb53cf3c5
       mount_point: /mnt/s3/fs1
   s3_bucket: null
-  s3_prefix: cadri/doppeltest/results
+  s3_prefix: cadri/scenorita/results
