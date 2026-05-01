@@ -30,9 +30,6 @@ def main() -> None:
     image_create_parser.add_argument("name", metavar="NAME", help="Name for the new AMI.")
     image_create_parser.add_argument("--region", default=None, help="AWS region override.")
 
-    launch_parser = subcommands.add_parser("launch", help="Launch a generator instance.")
-    launch_parser.add_argument("--config", required=True, help="Path to YAML config.")
-
     instance_parser = subcommands.add_parser("instance", help="Manage EC2 instances.")
     instance_subcommands = instance_parser.add_subparsers(
         dest="instance_command",
@@ -65,14 +62,6 @@ def main() -> None:
     instance_terminate_parser.add_argument("instance_id", help="EC2 instance ID.")
     instance_terminate_parser.add_argument("--region", default=None, help="AWS region override.")
 
-    collect_parser = subcommands.add_parser("collect", help="Collect generator results from S3.")
-    collect_parser.add_argument("--config", required=True, help="Path to YAML config.")
-    collect_parser.add_argument(
-        "--destination",
-        default="results",
-        help="Local output directory.",
-    )
-
     argcomplete.autocomplete(parser)
     args = parser.parse_args()
 
@@ -85,10 +74,6 @@ def main() -> None:
             from cadri_cli.image import create_image_from_instance
 
             print(create_image_from_instance(args.instance_id, args.name, args.region))
-    elif args.command == "launch":
-        from cadri_cli.launch import launch_instance
-
-        print(launch_instance(args.config))
     elif args.command == "instance":
         if args.instance_command == "launch":
             from cadri_cli.empty_instance import launch_empty_instance
@@ -106,12 +91,6 @@ def main() -> None:
             from cadri_cli.terminate import terminate_instance
 
             print(terminate_instance(args.instance_id, region=args.region))
-    elif args.command == "collect":
-        from cadri_cli.collect import collect_results
-
-        count = collect_results(args.config, args.destination)
-        print(f"downloaded {count} files")
-
 
 if __name__ == "__main__":
     main()
