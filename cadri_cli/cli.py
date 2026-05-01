@@ -9,8 +9,26 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="cadri", description="Manage CADRI AWS instances.")
     subcommands = parser.add_subparsers(dest="command", required=True)
 
-    image_parser = subcommands.add_parser("image", help="Prepare a generator AMI.")
-    image_parser.add_argument("--config", required=True, help="Path to YAML config.")
+    image_parser = subcommands.add_parser("image", help="Manage CADRI AMIs.")
+    image_subcommands = image_parser.add_subparsers(
+        dest="image_command",
+        required=True,
+    )
+
+    image_list_parser = image_subcommands.add_parser("list", help="List owned AMIs.")
+    image_list_parser.add_argument("--region", default=None, help="AWS region override.")
+
+    image_create_parser = image_subcommands.add_parser(
+        "create",
+        help="Create an AMI from a running EC2 instance.",
+    )
+    image_create_parser.add_argument(
+        "instance_id",
+        metavar="INSTANCE_ID",
+        help="Running EC2 instance ID.",
+    )
+    image_create_parser.add_argument("name", metavar="NAME", help="Name for the new AMI.")
+    image_create_parser.add_argument("--region", default=None, help="AWS region override.")
 
     launch_parser = subcommands.add_parser("launch", help="Launch a generator instance.")
     launch_parser.add_argument("--config", required=True, help="Path to YAML config.")
@@ -59,9 +77,14 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "image":
-        from cadri_cli.image import create_image
+        if args.image_command == "list":
+            from cadri_cli.image import format_images, list_images
 
-        print(create_image(args.config))
+            print(format_images(list_images(args.region)))
+        elif args.image_command == "create":
+            from cadri_cli.image import create_image_from_instance
+
+            print(create_image_from_instance(args.instance_id, args.name, args.region))
     elif args.command == "launch":
         from cadri_cli.launch import launch_instance
 

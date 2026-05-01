@@ -91,16 +91,21 @@ Edit `config/doppeltest.yaml` with the AWS values for your account:
 - `generator.s3_file_systems`
 
 After the image is created, set `launch.ami_id` to the AMI ID printed by
-`cadri image`.
+`cadri image create`.
 
-## Prepare an Image
+## Manage Images
+
+List owned AMIs and their backing snapshot IDs:
 
 ```bash
-uv run cadri image --config config/doppeltest.yaml
+uv run cadri image list
 ```
 
-This launches a temporary builder instance from `image.source_ami_id`, runs the
-commands in `image.setup_commands`, creates an AMI, and terminates the builder.
+Create an AMI from a running instance:
+
+```bash
+uv run cadri image create i-0123456789abcdef0 cadri-generator-manual
+```
 
 ## Launch a Manual Builder
 
