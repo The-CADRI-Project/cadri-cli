@@ -30,6 +30,14 @@ registered for the `cadri` executable name, not for `uv run cadri`.
 AWS credentials should come from your normal AWS CLI environment, such as
 `AWS_PROFILE`, `AWS_REGION`, or instance/role credentials.
 
+Set the EC2 key pair name for your machine once:
+
+```bash
+cadri configure
+```
+
+Config files can still override this per section by setting `key_name`.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, including
@@ -41,9 +49,8 @@ Edit `config/general.yaml` with the AWS values for your account:
 
 - `aws.region`
 - `empty_instance.ami_id`
-- `empty_instance.subnet_id`
-- `empty_instance.security_group_ids`
-- `empty_instance.key_name`
+- `defaults.instance.subnet_id`
+- `defaults.instance.security_group_ids`
 
 Then launch:
 
@@ -77,18 +84,12 @@ cadri instance terminate i-0123456789abcdef0
 Edit `config/doppeltest.yaml` with the AWS values for your account:
 
 - `aws.region`
-- `image.source_ami_id`
-- `image.subnet_id`
-- `image.security_group_ids`
-- `empty_instance.ami_id`
-- `empty_instance.subnet_id`
-- `empty_instance.security_group_ids`
-- `empty_instance.s3_file_systems`
+- `defaults.instance.ami_id`
+- `defaults.instance.subnet_id`
+- `defaults.instance.security_group_ids`
+- `defaults.empty_instance.s3_file_systems`
 - `generator.s3_bucket`
 - `generator.s3_file_systems`
-
-After the image is created, set `launch.ami_id` to the AMI ID printed by
-`cadri image create`.
 
 ## Manage Images
 

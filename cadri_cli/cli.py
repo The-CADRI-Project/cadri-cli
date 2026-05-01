@@ -30,6 +30,12 @@ def main() -> None:
     image_create_parser.add_argument("name", metavar="NAME", help="Name for the new AMI.")
     image_create_parser.add_argument("--region", default=None, help="AWS region override.")
 
+    configure_parser = subcommands.add_parser(
+        "configure",
+        help="Configure machine-local CADRI settings.",
+    )
+    configure_parser.set_defaults(configure_command="interactive")
+
     instance_parser = subcommands.add_parser("instance", help="Manage EC2 instances.")
     instance_subcommands = instance_parser.add_subparsers(
         dest="instance_command",
@@ -74,6 +80,17 @@ def main() -> None:
             from cadri_cli.image import create_image_from_instance
 
             print(create_image_from_instance(args.instance_id, args.name, args.region))
+    elif args.command == "configure":
+        from cadri_cli.config import configured_key_name, set_configured_key_name
+
+        current_key_name = configured_key_name() or ""
+        prompt = f"key_name[{current_key_name}]: "
+        key_name = input(prompt).strip() or current_key_name
+        if key_name:
+            path = set_configured_key_name(key_name)
+            print(f"configured key_name in {path}")
+        else:
+            print("key_name not configured")
     elif args.command == "instance":
         if args.instance_command == "launch":
             from cadri_cli.empty_instance import launch_empty_instance
