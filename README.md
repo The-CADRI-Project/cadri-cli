@@ -65,6 +65,7 @@ List instance names, IDs, statuses, and public IPs:
 
 ```bash
 cadri instance list
+cadri list instance
 ```
 
 Print one instance's public IP:
@@ -97,6 +98,13 @@ List owned AMIs and their backing snapshot IDs:
 
 ```bash
 cadri image list
+cadri list image
+```
+
+List available EC2 key pairs:
+
+```bash
+cadri list key_pair
 ```
 
 Create an AMI from a running instance:

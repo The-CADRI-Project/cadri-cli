@@ -36,6 +36,27 @@ def main() -> None:
     )
     configure_parser.set_defaults(configure_command="interactive")
 
+    list_parser = subcommands.add_parser("list", help="List AWS resources.")
+    list_subcommands = list_parser.add_subparsers(
+        dest="list_command",
+        required=True,
+    )
+
+    list_image_parser = list_subcommands.add_parser("image", help="List owned AMIs.")
+    list_image_parser.add_argument("--region", default=None, help="AWS region override.")
+
+    list_instance_parser = list_subcommands.add_parser(
+        "instance",
+        help="List EC2 instances.",
+    )
+    list_instance_parser.add_argument("--region", default=None, help="AWS region override.")
+
+    list_key_pair_parser = list_subcommands.add_parser(
+        "key_pair",
+        help="List EC2 key pairs.",
+    )
+    list_key_pair_parser.add_argument("--region", default=None, help="AWS region override.")
+
     instance_parser = subcommands.add_parser("instance", help="Manage EC2 instances.")
     instance_subcommands = instance_parser.add_subparsers(
         dest="instance_command",
@@ -91,6 +112,19 @@ def main() -> None:
             print(f"configured key_name in {path}")
         else:
             print("key_name not configured")
+    elif args.command == "list":
+        if args.list_command == "image":
+            from cadri_cli.image import format_images, list_images
+
+            print(format_images(list_images(args.region)))
+        elif args.list_command == "instance":
+            from cadri_cli.instance import format_instances, list_instances
+
+            print(format_instances(list_instances(args.region)))
+        elif args.list_command == "key_pair":
+            from cadri_cli.key_pair import format_key_pairs, list_key_pairs
+
+            print(format_key_pairs(list_key_pairs(args.region)))
     elif args.command == "instance":
         if args.instance_command == "launch":
             from cadri_cli.empty_instance import launch_empty_instance
