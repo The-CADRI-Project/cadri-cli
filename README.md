@@ -5,20 +5,21 @@
 ## Setup
 
 ```bash
-uv sync
+./setup.sh
 ```
 
-Run the CLI through uv:
+This installs `cadri-cli` for the current user in editable mode, so source
+changes in this checkout are reflected without reinstalling.
+
+Run the CLI directly:
 
 ```bash
-uv run cadri --help
+cadri --help
 ```
 
-For tab completion in zsh, activate the uv-managed environment and register
-completion for the `cadri` executable:
+For tab completion in zsh, register completion for the `cadri` executable:
 
 ```bash
-. .venv/bin/activate
 autoload -U bashcompinit && bashcompinit
 eval "$(register-python-argcomplete --shell zsh cadri)"
 ```
@@ -47,7 +48,7 @@ Edit `config/general.yaml` with the AWS values for your account:
 Then launch:
 
 ```bash
-uv run cadri instance launch --config config/general.yaml
+cadri instance launch --config config/general.yaml
 ```
 
 The instance and root volume are tagged with a generated `Name` in the form
@@ -56,19 +57,19 @@ The instance and root volume are tagged with a generated `Name` in the form
 List instance names, IDs, statuses, and public IPs:
 
 ```bash
-uv run cadri instance list
+cadri instance list
 ```
 
 Print one instance's public IP:
 
 ```bash
-uv run cadri instance ip i-0123456789abcdef0
+cadri instance ip i-0123456789abcdef0
 ```
 
 Terminate the instance:
 
 ```bash
-uv run cadri instance terminate i-0123456789abcdef0
+cadri instance terminate i-0123456789abcdef0
 ```
 
 ## Configure DoppelTest
@@ -94,19 +95,19 @@ After the image is created, set `launch.ami_id` to the AMI ID printed by
 List owned AMIs and their backing snapshot IDs:
 
 ```bash
-uv run cadri image list
+cadri image list
 ```
 
 Create an AMI from a running instance:
 
 ```bash
-uv run cadri image create i-0123456789abcdef0 cadri-generator-manual
+cadri image create i-0123456789abcdef0 cadri-generator-manual
 ```
 
 ## Launch a Manual Builder
 
 ```bash
-uv run cadri instance launch --config config/doppeltest.yaml
+cadri instance launch --config config/doppeltest.yaml
 ```
 
 This launches a plain EC2 instance using `empty_instance`. If
